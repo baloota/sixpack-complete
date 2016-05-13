@@ -10,7 +10,7 @@ docker ps -a | grep sixpack-redis1 > /dev/null
 if [ $? -eq 0 ]; then
 	docker start sixpack-redis1	
 else
-	docker run --name sixpack-redis1 -d redis:alpine
+	docker run --name sixpack-redis1 -d redis:alpine redis-server --appendonly yes
 fi
 
 docker run -d --link sixpack-redis1 --name sixpack-server1 sixpack-server:0.2

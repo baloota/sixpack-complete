@@ -6,6 +6,7 @@ if [ $? -ne 0 ]; then
 	echo "Enter the sixpack server URL:"
 	read url
 	echo "export SIXPACK_URL=$url" > .buildenv
+	echo "export SIXPACK_CONFIG_SECRET=`openssl rand -base64 32 | sed ""s/[+=\/:]//g""`" > .buildenv
 	chmod +x .buildenv
 fi
 source .buildenv
@@ -54,7 +55,7 @@ else
 fi
 docker run -d --link sixpack-redis1 --name sixpack-server1 sixpack-server:1.0
 docker run -d --link sixpack-redis1 --name sixpack-server2 sixpack-server:1.0
-docker run -d --link sixpack-redis1 --name sixpack-web1 sixpack-web:1.0
+docker run -d --link sixpack-redis1 --name sixpack-web1 --env SIXPACK_CONFIG_SECRET=$SIXPACK_CONFIG_SECRET sixpack-web:1.0
 docker run -d --link sixpack-server1 --link sixpack-server2 --link sixpack-web1 --name sixpack-nginx1 -p 443:443 -p 80:80 sixpack-nginx:1.0
 
 ## NOTES:

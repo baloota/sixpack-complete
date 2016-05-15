@@ -1,3 +1,5 @@
+docker-machine ls
+
 ## Check if the build environment variables are set
 ls .buildenv &> /dev/null
 if [ $? -ne 0 ]; then
@@ -42,3 +44,7 @@ docker run -d --link sixpack-redis1 --name sixpack-server1 sixpack-server:1.0
 docker run -d --link sixpack-redis1 --name sixpack-server2 sixpack-server:1.0
 docker run -d --link sixpack-redis1 --name sixpack-web1 sixpack-web:1.0
 docker run -d --link sixpack-server1 --link sixpack-server2 --link sixpack-web1 --name sixpack-nginx1 -p 443:443 -p 80:80 sixpack-nginx:1.0
+
+## NOTES:
+## To create a docker machine on google cloud platform:
+## https://docs.docker.com/machine/drivers/gce/

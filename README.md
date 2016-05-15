@@ -1,5 +1,5 @@
 # Complete Dockerized Sixpack a/b testing server
-Build your own [Sixpack](sixpack.seatgeek.com) a/b testing server.
+Build your own [Sixpack](http://sixpack.seatgeek.com) a/b testing server.
 
 ## Docker images
 - `sixpack-server` - The sixpack API server

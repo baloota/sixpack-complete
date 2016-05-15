@@ -10,13 +10,25 @@ if [ $? -ne 0 ]; then
 fi
 source .buildenv
 
-##copy nginx conf file and modify with server URL
+## nginx configuration
 ls nginx/build/ &> /dev/null
 if [ $? -ne 0 ]; then
 	mkdir nginx/build
 fi
-cp nginx/sixpack.conf.template nginx/build/sixpack.conf
-sed -i -e "s/##SERVER_NAME##/$SIXPACK_URL/g" nginx/build/sixpack.conf
+
+ls nginx/build/sixpack.conf &> /dev/null
+if [ $? -ne 0 ]; then
+	cp nginx/sixpack.conf.template nginx/build/sixpack.conf
+	sed -i -e "s/##SERVER_NAME##/$SIXPACK_URL/g" nginx/build/sixpack.conf
+fi
+
+ls nginx/build/htpasswd &> /dev/null
+if [ $? -ne 0 ]; then
+	echo "Enter the user name for sixpack admin:"
+	read username
+	echo -n "$username:" > nginx/build/htpasswd
+	openssl passwd -apr1 >> nginx/build/htpasswd
+fi
 
 ## Check for SSL certificates
 ls nginx/certs/*.crt &> /dev/null

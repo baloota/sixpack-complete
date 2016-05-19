@@ -6,9 +6,9 @@ if [ $? -ne 0 ]; then
 fi
 source .buildenv
 
-docker stop sixpack-nginx1
-docker stop sixpack-web1
+docker rm sixpack-redis1
+docker rm sixpack-web1
 for (( i=1; i<=$SIXPACK_SERVERS; i++ )); do
-	echo "docker stop sixpack-server$i" | bash
+	echo "docker rm sixpack-server$i" | bash
 done
-docker stop sixpack-redis1
+docker rm sixpack-nginx1

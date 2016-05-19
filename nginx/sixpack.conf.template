@@ -33,8 +33,7 @@ server {
 
 upstream api {
 	least_conn;
-	server sixpack-server1:5000;
-	server sixpack-server2:5000;
+	##SIXPACK_SERVER_UPSTREAM##
 }
 upstream web {
 	server sixpack-web1:5001;	

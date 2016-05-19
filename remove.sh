@@ -6,9 +6,11 @@ if [ $? -ne 0 ]; then
 fi
 source .buildenv
 
-docker rm sixpack-redis1
 docker rm sixpack-web1
 for (( i=1; i<=$SIXPACK_SERVERS; i++ )); do
 	echo "docker rm sixpack-server$i" | bash
 done
 docker rm sixpack-nginx1
+if [ "$1" == "redis" ]; then
+	docker rm sixpack-redis1
+fi

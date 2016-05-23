@@ -69,4 +69,7 @@ server {
 	location ^~ /convert {
 		proxy_pass http://api;
 	}
+	location ^~ /_status {
+		proxy_pass http://api;
+	}
 }
